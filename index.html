@@ -197,6 +197,51 @@
         .status-active { color: var(--monday-green); font-weight: 500; }
         .status-ready { color: var(--monday-amber); font-weight: 500; }
         .status-pending { color: var(--monday-blue); font-weight: 500; }
+        .status-off { color: var(--monday-red); font-weight: 500; }
+
+        /* ── Quick Links Grid ── */
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+            margin: 20px 0;
+        }
+
+        .quick-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--monday-bg);
+            border: 1px solid var(--monday-border);
+            border-radius: 6px;
+            padding: 16px 18px;
+            text-decoration: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .quick-link:hover {
+            border-color: var(--monday-amber-dim);
+            background: var(--monday-surface-2);
+            text-decoration: none;
+        }
+
+        .quick-link .ql-icon {
+            font-size: 1.5em;
+            flex-shrink: 0;
+        }
+
+        .quick-link .ql-label {
+            font-weight: 600;
+            font-size: 0.88em;
+            color: var(--monday-text-bright);
+            line-height: 1.3;
+        }
+
+        .quick-link .ql-sub {
+            font-size: 0.75em;
+            color: var(--monday-text-dim);
+            margin-top: 2px;
+        }
 
         /* ── Pipeline Diagram ── */
         .pipeline {
@@ -341,6 +386,52 @@
             border: 1px solid var(--monday-border);
         }
 
+        /* ── Status indicators ── */
+        .indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+        .indicator-green { background: var(--monday-green); box-shadow: 0 0 6px rgba(39,174,96,0.5); }
+        .indicator-amber { background: var(--monday-amber); box-shadow: 0 0 6px rgba(212,160,55,0.4); }
+        .indicator-red { background: var(--monday-red); }
+
+        /* ── Episode card ── */
+        .episode-card {
+            background: var(--monday-bg);
+            border: 1px solid var(--monday-border);
+            border-left: 3px solid var(--monday-green);
+            border-radius: 0 6px 6px 0;
+            padding: 20px 24px;
+            margin: 16px 0;
+        }
+
+        .episode-card .ep-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1em;
+            color: var(--monday-text-bright);
+            margin-bottom: 8px;
+        }
+
+        .episode-card .ep-meta {
+            font-size: 0.82em;
+            color: var(--monday-text-dim);
+            margin-bottom: 8px;
+        }
+
+        .episode-card .ep-stories {
+            font-size: 0.88em;
+            color: var(--monday-text);
+        }
+
+        /* ── Schedule row highlights ── */
+        .schedule-live {
+            border-left: 3px solid var(--monday-green);
+        }
+
         /* ── Footer ── */
         .footer {
             text-align: center;
@@ -372,6 +463,7 @@
             .pipeline-flow { flex-direction: column; }
             .pipeline-arrow { transform: rotate(90deg); }
             td, th { padding: 8px 10px; font-size: 0.85em; }
+            .quick-links-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -389,33 +481,82 @@
 
     <!-- Navigation -->
     <nav class="nav">
-        <a href="#portal" style="color:var(--accent);">🎛️ Portal</a>
-        <a href="https://inceptionpointai.github.io/agent-monday-blog/" target="_blank">📝 Blog</a>
+        <a href="#quick-links">🔗 Links</a>
+        <a href="#portal">🎛️ Portal</a>
         <a href="#status">Status</a>
+        <a href="#spreaker-shows">Spreaker</a>
+        <a href="#episodes">Episodes</a>
+        <a href="#schedule">Schedule</a>
         <a href="#character">Character</a>
+        <a href="#voice">Voice</a>
         <a href="#shows">Shows</a>
         <a href="#pipeline">Pipeline</a>
         <a href="#models">AI Models</a>
-        <a href="#sources">Data Sources</a>
+        <a href="#infrastructure">Infra</a>
+        <a href="#services">Services</a>
+        <a href="#repos">Repos</a>
+        <a href="#sources">Sources</a>
         <a href="#platforms">Platforms</a>
         <a href="#architecture">Architecture</a>
     </nav>
 
+    <!-- Quick Links -->
+    <div class="section" id="quick-links">
+        <h2>🔗 Quick Links</h2>
+        <div class="quick-links-grid">
+            <a class="quick-link" href="http://35.86.158.139:3000/" target="_blank">
+                <span class="ql-icon">🎛️</span>
+                <div>
+                    <div class="ql-label">Content Portal</div>
+                    <div class="ql-sub">Review &amp; approve content</div>
+                </div>
+            </a>
+            <a class="quick-link" href="http://35.86.158.139:18789/" target="_blank">
+                <span class="ql-icon">📊</span>
+                <div>
+                    <div class="ql-label">Dashboard</div>
+                    <div class="ql-sub">Clawdbot control panel</div>
+                </div>
+            </a>
+            <a class="quick-link" href="https://inceptionpointai.github.io/agent-monday-plan/" target="_blank">
+                <span class="ql-icon">📋</span>
+                <div>
+                    <div class="ql-label">Content Plan</div>
+                    <div class="ql-sub">Character bible &amp; strategy</div>
+                </div>
+            </a>
+            <a class="quick-link" href="https://inceptionpointai.github.io/agent-monday-blog/" target="_blank">
+                <span class="ql-icon">📝</span>
+                <div>
+                    <div class="ql-label">Monday's Record</div>
+                    <div class="ql-sub">Blog — GitHub Pages</div>
+                </div>
+            </a>
+            <a class="quick-link" href="https://www.spreaker.com/podcast/miami-florida-police-report--6249439" target="_blank">
+                <span class="ql-icon">🎙️</span>
+                <div>
+                    <div class="ql-label">Miami Police Report</div>
+                    <div class="ql-sub">Live on Spreaker — S1 active</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
     <!-- Content Review Portal -->
-    <div class="section" id="portal" style="text-align:center; padding:2rem;">
-        <h2>🎛️ Content Review Portal <span style="background:var(--accent);color:var(--bg);padding:2px 8px;border-radius:3px;font-size:0.6em;vertical-align:middle;">NEW</span></h2>
-        <p style="color:var(--text-secondary);max-width:600px;margin:0.5rem auto 1.5rem;">Human-in-the-loop approval system for AI-generated content before publishing.</p>
+    <div class="section" id="portal" style="text-align:center; padding:2rem 32px;">
+        <h2>🎛️ Content Review Portal</h2>
+        <p style="color:var(--monday-text-dim);max-width:600px;margin:0.5rem auto 1.5rem;">Human-in-the-loop approval system for AI-generated content before publishing.</p>
         <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem;">
-            <div style="background:var(--bg-card);border:1px solid var(--border);padding:1rem 1.5rem;border-radius:4px;text-align:left;">
-                <strong style="color:var(--accent);">✅ Review & Approve</strong>
-                <p style="color:var(--text-secondary);font-size:0.85rem;margin:0.3rem 0 0;">Preview podcasts, videos, reels, blog posts. Approve or reject with feedback.</p>
+            <div style="background:var(--monday-bg);border:1px solid var(--monday-border);padding:1rem 1.5rem;border-radius:4px;text-align:left;">
+                <strong style="color:var(--monday-amber);">✅ Review & Approve</strong>
+                <p style="color:var(--monday-text-dim);font-size:0.85rem;margin:0.3rem 0 0;">Preview podcasts, videos, reels, blog posts. Approve or reject with feedback.</p>
             </div>
-            <div style="background:var(--bg-card);border:1px solid var(--border);padding:1rem 1.5rem;border-radius:4px;text-align:left;">
-                <strong style="color:var(--accent);">📊 All Formats</strong>
-                <p style="color:var(--text-secondary);font-size:0.85rem;margin:0.3rem 0 0;">Podcast, YouTube, TikTok, Instagram, Twitter/X, Blog — all in one place.</p>
+            <div style="background:var(--monday-bg);border:1px solid var(--monday-border);padding:1rem 1.5rem;border-radius:4px;text-align:left;">
+                <strong style="color:var(--monday-amber);">📊 All Formats</strong>
+                <p style="color:var(--monday-text-dim);font-size:0.85rem;margin:0.3rem 0 0;">Podcast, YouTube, TikTok, Instagram, Twitter/X, Blog — all in one place.</p>
             </div>
         </div>
-        <a href="http://35.86.158.139:3000/" target="_blank" style="display:inline-block;background:var(--accent);color:var(--bg);padding:0.75rem 2rem;text-decoration:none;font-weight:700;border-radius:3px;font-size:0.95rem;">Open Content Portal →</a>
+        <a href="http://35.86.158.139:3000/" target="_blank" style="display:inline-block;background:var(--monday-amber);color:var(--monday-bg);padding:0.75rem 2rem;text-decoration:none;font-weight:700;border-radius:3px;font-size:0.95rem;">Open Content Portal →</a>
     </div>
 
     <!-- System Status -->
@@ -437,46 +578,242 @@
                 </tr>
                 <tr>
                     <td>Voice</td>
-                    <td>Hume TTS — Custom Voice</td>
+                    <td>Hume TTS (Custom Monday voice)</td>
                     <td class="status-active">✅ Active</td>
                 </tr>
                 <tr>
-                    <td>Data Pipeline</td>
-                    <td>Native (Court Feeds, DOJ, SEC)</td>
-                    <td class="status-active">✅ Active</td>
-                </tr>
-                <tr>
-                    <td>Server</td>
-                    <td>AWS EC2 — t3.small (Ubuntu 24.04)</td>
-                    <td class="status-active">✅ Active</td>
-                </tr>
-                <tr>
-                    <td>Dashboard</td>
-                    <td>Clawdbot</td>
+                    <td>Search</td>
+                    <td>Brave Search</td>
                     <td class="status-active">✅ Active</td>
                 </tr>
                 <tr>
                     <td>Publishing</td>
-                    <td>Spreaker (QP-1 Network)</td>
-                    <td class="status-ready">⏳ Ready</td>
+                    <td>Spreaker (Miami live)</td>
+                    <td class="status-active">✅ Active</td>
                 </tr>
                 <tr>
-                    <td>Video Generation</td>
+                    <td>Portal</td>
+                    <td>Next.js on port 3000</td>
+                    <td class="status-active">✅ Active</td>
+                </tr>
+                <tr>
+                    <td>Dashboard</td>
+                    <td>Clawdbot on port 18789</td>
+                    <td class="status-active">✅ Active</td>
+                </tr>
+                <tr>
+                    <td>Video</td>
                     <td>LTX Video</td>
                     <td class="status-ready">⏳ Ready</td>
                 </tr>
                 <tr>
-                    <td>Telegram</td>
-                    <td>@AgentMonday_bot</td>
+                    <td>Images</td>
+                    <td>Flux / PiAPI</td>
+                    <td class="status-ready">⏳ Ready</td>
+                </tr>
+                <tr>
+                    <td>Blog</td>
+                    <td>GitHub Pages</td>
                     <td class="status-active">✅ Active</td>
+                </tr>
+                <tr>
+                    <td>Slack</td>
+                    <td>—</td>
+                    <td class="status-off">❌ Not connected</td>
                 </tr>
             </tbody>
         </table>
         <p style="font-size: 0.82em; color: var(--monday-text-dim); margin-top: 12px;">
             Server: <code>ipai-monday</code> at <code>35.86.158.139</code> &nbsp;|&nbsp;
-            Dashboard: <a href="http://35.86.158.139:18789/" target="_blank">Clawdbot Panel</a> &nbsp;|&nbsp;
-            Hume Voice ID: <code>889dba79-8337-498d-9340-5009cbc71c18</code>
+            Dashboard: <a href="http://35.86.158.139:18789/" target="_blank">port 18789</a> &nbsp;|&nbsp;
+            Portal: <a href="http://35.86.158.139:3000/" target="_blank">port 3000</a>
         </p>
+    </div>
+
+    <!-- Spreaker Shows -->
+    <div class="section" id="spreaker-shows">
+        <h2>🎙️ Spreaker Shows Network</h2>
+        <p>14 target police/blotter/crime report shows across the Quiet Please network. Monday researches, scripts, voices, and publishes each show.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Show</th>
+                    <th>Show ID</th>
+                    <th>Account</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Miami Florida Police Report</strong></td>
+                    <td><code>6249439</code></td>
+                    <td>QP-4</td>
+                    <td><span class="indicator indicator-green"></span><span class="status-active">ACTIVE — S1E1 live</span></td>
+                </tr>
+                <tr>
+                    <td>Police Blotter</td>
+                    <td><code>5943344</code></td>
+                    <td>QP-1</td>
+                    <td><span class="indicator indicator-amber"></span><span class="status-ready">Pending</span></td>
+                </tr>
+                <tr>
+                    <td>Police Report — St. Louis MO</td>
+                    <td><code>6184045</code></td>
+                    <td>QP-3</td>
+                    <td><span class="indicator indicator-amber"></span><span class="status-ready">Pending</span></td>
+                </tr>
+                <tr>
+                    <td>Orlando Florida Crime Report</td>
+                    <td><code>6249444</code></td>
+                    <td>QP-4</td>
+                    <td><span class="indicator indicator-amber"></span><span class="status-ready">Pending</span></td>
+                </tr>
+                <tr>
+                    <td>Austin Texas Crime Report</td>
+                    <td><code>6249433</code></td>
+                    <td>QP-4</td>
+                    <td><span class="indicator indicator-amber"></span><span class="status-ready">Pending</span></td>
+                </tr>
+                <tr>
+                    <td>Aurora, Colorado Crime Report</td>
+                    <td><code>6415423</code></td>
+                    <td>QP-Daily</td>
+                    <td><span class="indicator indicator-amber"></span><span class="status-ready">Pending</span></td>
+                </tr>
+                <tr>
+                    <td>Chandler, Arizona Crime Report</td>
+                    <td><code>6415424</code></td>
+                    <td>QP-Daily</td>
+                    <td><span class="indicator indicator-amber"></span><span class="status-ready">Pending</span></td>
+                </tr>
+                <tr>
+                    <td>Colorado Springs, Colorado Crime Report</td>
+                    <td><code>6415419</code></td>
+                    <td>QP-Daily</td>
+                    <td><span class="indicator indicator-amber"></span><span class="status-ready">Pending</span></td>
+                </tr>
+                <tr>
+                    <td>Fresno, California Crime Report</td>
+                    <td><code>6415416</code></td>
+                    <td>QP-Daily</td>
+                    <td><span class="indicator indicator-amber"></span><span class="status-ready">Pending</span></td>
+                </tr>
+                <tr>
+                    <td>Henderson, Nevada Crime Report</td>
+                    <td><code>6415425</code></td>
+                    <td>QP-Daily</td>
+                    <td><span class="indicator indicator-amber"></span><span class="status-ready">Pending</span></td>
+                </tr>
+                <tr>
+                    <td>Mesa, Arizona Crime Report</td>
+                    <td><code>6415418</code></td>
+                    <td>QP-Daily</td>
+                    <td><span class="indicator indicator-amber"></span><span class="status-ready">Pending</span></td>
+                </tr>
+                <tr>
+                    <td>Omaha, Nebraska Crime Report</td>
+                    <td><code>6415420</code></td>
+                    <td>QP-Daily</td>
+                    <td><span class="indicator indicator-amber"></span><span class="status-ready">Pending</span></td>
+                </tr>
+                <tr>
+                    <td>Sacramento, California Crime Report</td>
+                    <td><code>6415417</code></td>
+                    <td>QP-Daily</td>
+                    <td><span class="indicator indicator-amber"></span><span class="status-ready">Pending</span></td>
+                </tr>
+                <tr>
+                    <td>Tulsa, Oklahoma Crime Report</td>
+                    <td><code>6415421</code></td>
+                    <td>QP-Daily</td>
+                    <td><span class="indicator indicator-amber"></span><span class="status-ready">Pending</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Published Episodes -->
+    <div class="section" id="episodes">
+        <h2>📻 Published Episodes</h2>
+        <div class="episode-card">
+            <div class="ep-title">S1E1: Miami Police Report — March 29, 2026</div>
+            <div class="ep-meta">
+                <span class="indicator indicator-green"></span>Live &nbsp;·&nbsp;
+                Duration: 2:58 &nbsp;·&nbsp;
+                <a href="https://www.spreaker.com/episode/miami-police-report-march-29-2026--70979149" target="_blank">Listen on Spreaker →</a>
+            </div>
+            <div class="ep-stories">
+                <strong>Stories covered:</strong> Ultra Festival shooting, Sunoco station arrest, West Perrine shootings, Miami Beach arrest
+            </div>
+        </div>
+        <p style="font-size: 0.85em; color: var(--monday-text-dim);">More episodes publishing daily. This section updates as new episodes go live.</p>
+    </div>
+
+    <!-- Production Schedule -->
+    <div class="section" id="schedule">
+        <h2>📅 Production Schedule</h2>
+        <p>Automated daily production — Monday researches, writes, voices, and publishes with zero human intervention.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Show</th>
+                    <th>Frequency</th>
+                    <th>Schedule</th>
+                    <th>Pipeline</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="schedule-live">
+                    <td><strong>Miami Police Report</strong></td>
+                    <td>Daily</td>
+                    <td>6:00 AM PT / 1:00 PM UTC</td>
+                    <td>Research → Script → Hume TTS → Spreaker</td>
+                    <td class="status-active">✅ Live</td>
+                </tr>
+                <tr>
+                    <td>Monday's Report</td>
+                    <td>Daily</td>
+                    <td>TBD</td>
+                    <td>Research → Script → Hume TTS → Spreaker</td>
+                    <td class="status-ready">⏳ Coming soon</td>
+                </tr>
+                <tr>
+                    <td>Other city reports</td>
+                    <td>Daily</td>
+                    <td>TBD</td>
+                    <td>Same pipeline, per-city data</td>
+                    <td class="status-pending">📋 Planned</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Daily Pipeline (Miami)</h3>
+        <div class="pipeline-flow">
+            <div class="pipeline-stage">
+                <div class="stage-icon">🔍</div>
+                <div class="stage-name">Research</div>
+                <div class="stage-tool">Brave Search</div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-stage">
+                <div class="stage-icon">✍️</div>
+                <div class="stage-name">Script</div>
+                <div class="stage-tool">Claude Opus</div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-stage">
+                <div class="stage-icon">🎙️</div>
+                <div class="stage-name">Voice</div>
+                <div class="stage-tool">Hume TTS</div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-stage">
+                <div class="stage-icon">📤</div>
+                <div class="stage-name">Publish</div>
+                <div class="stage-tool">Spreaker</div>
+            </div>
+        </div>
     </div>
 
     <!-- Character Overview -->
@@ -495,6 +832,8 @@
                 <tr><td style="color: var(--monday-amber);">Network</td><td>QP-1 / Quiet Please — Inception Point AI</td></tr>
                 <tr><td style="color: var(--monday-amber);">Voice</td><td>Authoritative male, mid-range, measured pace. Newsroom gravitas with dry wit.</td></tr>
                 <tr><td style="color: var(--monday-amber);">Age Feel</td><td>Mid-40s — experienced enough to be credible, sharp enough to be dangerous</td></tr>
+                <tr><td style="color: var(--monday-amber);">Signature Open</td><td><em>"Monday's report."</em></td></tr>
+                <tr><td style="color: var(--monday-amber);">Signature Close</td><td><em>"Monday out."</em></td></tr>
                 <tr><td style="color: var(--monday-amber);">The Pitch</td><td>The investigative voice who reads every court filing so you don't have to — then tells you the one line that changes everything.</td></tr>
                 <tr><td style="color: var(--monday-amber);">Differentiator</td><td>The <em>only</em> true crime content built entirely on verifiable public records, produced daily by AI, with every claim sourced to a specific document.</td></tr>
             </tbody>
@@ -520,6 +859,22 @@
         <p style="margin-top: 16px;">
             <a href="https://inceptionpointai.github.io/agent-monday-plan/" target="_blank">View Full Character Bible &amp; Content Strategy →</a>
         </p>
+    </div>
+
+    <!-- Voice & Identity -->
+    <div class="section" id="voice">
+        <h2>🗣️ Voice &amp; Identity</h2>
+        <table>
+            <tbody>
+                <tr><td style="width:200px; color: var(--monday-amber);">Hume Voice ID</td><td><code>889dba79-8337-498d-9340-5009cbc71c18</code></td></tr>
+                <tr><td style="color: var(--monday-amber);">Voice Style</td><td>Authoritative male, measured pace, dry wit</td></tr>
+                <tr><td style="color: var(--monday-amber);">Delivery</td><td>Newsroom gravitas — confident, economical, precise</td></tr>
+                <tr><td style="color: var(--monday-amber);">Opening Signature</td><td><em>"Monday's report."</em></td></tr>
+                <tr><td style="color: var(--monday-amber);">Closing Signature</td><td><em>"Monday out."</em></td></tr>
+                <tr><td style="color: var(--monday-amber);">TTS Provider</td><td>Hume AI — Custom voice model</td></tr>
+                <tr><td style="color: var(--monday-amber);">Status</td><td class="status-active">✅ Active — producing daily episodes</td></tr>
+            </tbody>
+        </table>
     </div>
 
     <!-- Show Formats -->
@@ -587,7 +942,7 @@
             <div class="pipeline-stage">
                 <div class="stage-icon">📡</div>
                 <div class="stage-name">Collect</div>
-                <div class="stage-tool">Court Feeds</div>
+                <div class="stage-tool">Brave Search</div>
             </div>
             <div class="pipeline-arrow">→</div>
             <div class="pipeline-stage">
@@ -629,10 +984,10 @@
 
         <h3>Podcast Pipeline</h3>
         <div class="pipeline">
-<pre><span class="stage">Data Feeds</span> → <span class="stage">Story Selection</span> → <span class="stage">Script (Claude)</span> → <span class="stage">TTS (Hume)</span> → <span class="stage">Assembly</span> → <span class="stage">Publish (Spreaker)</span>
+<pre><span class="stage">Brave Search</span> → <span class="stage">Story Selection</span> → <span class="stage">Script (Claude)</span> → <span class="stage">TTS (Hume)</span> → <span class="stage">Assembly</span> → <span class="stage">Publish (Spreaker)</span>
     <span class="detail">│</span>              <span class="detail">│</span>                 <span class="detail">│</span>               <span class="detail">│</span>             <span class="detail">│</span>              <span class="detail">│</span>
-  <span class="detail">PACER, DOJ</span>    <span class="detail">Relevance +</span>       <span class="detail">~10s</span>          <span class="detail">~30s</span>       <span class="detail">+Intro/Outro</span>   <span class="detail">Auto-Publish</span>
-  <span class="detail">SEC, FBI</span>      <span class="detail">Public Interest</span>                                 <span class="detail">+ Metadata</span></pre>
+  <span class="detail">City news</span>     <span class="detail">Relevance +</span>       <span class="detail">~10s</span>          <span class="detail">~30s</span>       <span class="detail">+Intro/Outro</span>   <span class="detail">Auto-Publish</span>
+  <span class="detail">Crime data</span>    <span class="detail">Public Interest</span>                                 <span class="detail">+ Metadata</span></pre>
         </div>
 
         <h3>Video Pipeline</h3>
@@ -663,8 +1018,8 @@
             <tbody>
                 <tr>
                     <td>Research &amp; Data Collection</td>
-                    <td>Perplexity + Custom Scrapers</td>
-                    <td>Real-time web search, court record parsing, up-to-date legal info</td>
+                    <td>Brave Search + Scrapers</td>
+                    <td>Real-time web search, crime news aggregation, public record feeds</td>
                 </tr>
                 <tr>
                     <td>Story Selection &amp; Triage</td>
@@ -700,6 +1055,121 @@
                     <td>Orchestration</td>
                     <td>CB (Claude Opus) / Clawdbot</td>
                     <td>Pipeline coordination, scheduling, quality control</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Infrastructure -->
+    <div class="section" id="infrastructure">
+        <h2>🏗️ Infrastructure</h2>
+        <table>
+            <tbody>
+                <tr><td style="width:200px; color: var(--monday-amber);">Server</td><td><code>ipai-monday</code> — <code>35.86.158.139</code></td></tr>
+                <tr><td style="color: var(--monday-amber);">Instance</td><td>AWS EC2 t3.small — Ubuntu 24.04</td></tr>
+                <tr><td style="color: var(--monday-amber);">Clawdbot</td><td>v2026.1.24-3 — Claude Opus 4.6</td></tr>
+                <tr><td style="color: var(--monday-amber);">Dashboard</td><td><a href="http://35.86.158.139:18789/" target="_blank">http://35.86.158.139:18789/</a></td></tr>
+                <tr><td style="color: var(--monday-amber);">Gateway Port</td><td><code>18789</code> (LAN bind)</td></tr>
+                <tr><td style="color: var(--monday-amber);">Content Portal</td><td><a href="http://35.86.158.139:3000/" target="_blank">http://35.86.158.139:3000/</a> — Next.js</td></tr>
+                <tr><td style="color: var(--monday-amber);">Portal Port</td><td><code>3000</code></td></tr>
+                <tr><td style="color: var(--monday-amber);">Pipeline</td><td>Fully native — no Make.com dependency</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- API Keys & Services -->
+    <div class="section" id="services">
+        <h2>🔑 API Keys &amp; Services</h2>
+        <p>Configured services powering Monday's pipeline. No keys shown — overview only.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Service</th>
+                    <th>Purpose</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Anthropic (Claude Opus 4.6)</td>
+                    <td>Brain — script writing, story triage, orchestration</td>
+                    <td class="status-active">✅ Configured</td>
+                </tr>
+                <tr>
+                    <td>OpenAI</td>
+                    <td>Supplementary tasks, Whisper transcription</td>
+                    <td class="status-active">✅ Configured</td>
+                </tr>
+                <tr>
+                    <td>Hume TTS (Custom Voice)</td>
+                    <td>Monday's voice — episode audio generation</td>
+                    <td class="status-active">✅ Configured</td>
+                </tr>
+                <tr>
+                    <td>Brave Search</td>
+                    <td>Real-time news &amp; crime data research</td>
+                    <td class="status-active">✅ Configured</td>
+                </tr>
+                <tr>
+                    <td>Spreaker (all QP accounts)</td>
+                    <td>Podcast publishing — QP-1, QP-3, QP-4, QP-Daily</td>
+                    <td class="status-active">✅ Configured</td>
+                </tr>
+                <tr>
+                    <td>LTX Video</td>
+                    <td>AI video generation — B-roll, shorts</td>
+                    <td class="status-active">✅ Configured</td>
+                </tr>
+                <tr>
+                    <td>D-ID</td>
+                    <td>AI avatar video generation</td>
+                    <td class="status-active">✅ Configured</td>
+                </tr>
+                <tr>
+                    <td>PiAPI / Flux</td>
+                    <td>Image generation — thumbnails, social assets</td>
+                    <td class="status-active">✅ Configured</td>
+                </tr>
+                <tr>
+                    <td>Slack</td>
+                    <td>Team communication</td>
+                    <td class="status-off">❌ Not connected</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- GitHub Repos -->
+    <div class="section" id="repos">
+        <h2>📦 GitHub Repositories</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Repository</th>
+                    <th>Purpose</th>
+                    <th>URL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>agent-monday-docs</strong></td>
+                    <td>This site — source of truth &amp; documentation</td>
+                    <td><a href="https://github.com/inceptionpointai/agent-monday-docs" target="_blank">GitHub</a></td>
+                </tr>
+                <tr>
+                    <td><strong>agent-monday-portal</strong></td>
+                    <td>Content review portal (Next.js)</td>
+                    <td><a href="https://github.com/inceptionpointai/agent-monday-portal" target="_blank">GitHub</a></td>
+                </tr>
+                <tr>
+                    <td><strong>agent-monday-plan</strong></td>
+                    <td>Content plan &amp; character bible</td>
+                    <td><a href="https://github.com/inceptionpointai/agent-monday-plan" target="_blank">GitHub</a></td>
+                </tr>
+                <tr>
+                    <td><strong>agent-monday-blog</strong></td>
+                    <td>Monday's Record — blog on GitHub Pages</td>
+                    <td><a href="https://github.com/inceptionpointai/agent-monday-blog" target="_blank">GitHub</a></td>
                 </tr>
             </tbody>
         </table>
@@ -755,6 +1225,12 @@
                     <td>Daily booking/intake logs from county jails and sheriff offices</td>
                     <td><em>Varies by county</em></td>
                 </tr>
+                <tr>
+                    <td><strong>Brave Search</strong></td>
+                    <td>Real-Time News</td>
+                    <td>City-specific crime news aggregation for daily reports</td>
+                    <td><a href="https://search.brave.com" target="_blank">search.brave.com</a></td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -772,7 +1248,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>Spreaker</strong> (QP-1 Network)</td>
+                    <td><strong>Spreaker</strong> (QP Network)</td>
                     <td>Podcast episodes (3–30 min)</td>
                     <td>1–3 per day</td>
                 </tr>
@@ -802,9 +1278,9 @@
                     <td>1–2 per day</td>
                 </tr>
                 <tr>
-                    <td><strong>Telegram</strong> (<a href="https://t.me/AgentMonday_bot" target="_blank">@AgentMonday_bot</a>)</td>
-                    <td>Direct interaction, case updates, breaking alerts</td>
-                    <td>Always on</td>
+                    <td><strong>Blog</strong> (<a href="https://inceptionpointai.github.io/agent-monday-blog/" target="_blank">Monday's Record</a>)</td>
+                    <td>Long-form articles, case analysis</td>
+                    <td>Weekly</td>
                 </tr>
             </tbody>
         </table>
@@ -823,11 +1299,11 @@
 │                                                                     │
 │   <span class="stage">DATA LAYER</span>                    <span class="stage">BRAIN</span>                              │
 │   ┌──────────────┐            ┌──────────────────┐                 │
-│   │ PACER        │──┐         │ Claude Opus 4.6  │                 │
-│   │ DOJ Releases │──┤         │ (Anthropic)      │                 │
-│   │ SEC Enforce  │──┼────────▶│                  │                 │
-│   │ FBI Wanted   │──┤         │ • Story Triage   │                 │
-│   │ State Courts │──┤         │ • Script Writing  │                 │
+│   │ Brave Search │──┐         │ Claude Opus 4.6  │                 │
+│   │ PACER        │──┤         │ (Anthropic)      │                 │
+│   │ DOJ Releases │──┼────────▶│                  │                 │
+│   │ SEC Enforce  │──┤         │ • Story Triage   │                 │
+│   │ FBI Wanted   │──┤         │ • Script Writing  │                 │
 │   │ Booking Logs │──┘         │ • Quality Control │                 │
 │   └──────────────┘            └────────┬─────────┘                 │
 │                                        │                            │
@@ -843,16 +1319,16 @@
 │   <span class="stage">PUBLISHING</span>                  <span class="stage">DISTRIBUTION</span>                       │
 │   ┌──────────────┐            ┌──────────────────┐                 │
 │   │ Spreaker     │            │ YouTube           │                 │
-│   │ (QP-1)       │            │ TikTok / Reels    │                 │
-│   │              │            │ X / Twitter        │                 │
-│   │              │            │ Instagram          │                 │
-│   │              │            │ Telegram           │                 │
+│   │ 14 shows     │            │ TikTok / Reels    │                 │
+│   │ QP Network   │            │ X / Twitter        │                 │
+│   │              │            │ Blog (GH Pages)    │                 │
 │   └──────────────┘            └──────────────────┘                 │
 │                                                                     │
 │   <span class="stage">INFRASTRUCTURE</span>                                                    │
 │   ┌─────────────────────────────────────────────┐                  │
 │   │ AWS EC2 (t3.small) │ Ubuntu 24.04           │                  │
-│   │ Clawdbot Dashboard │ http://35.86.158.139   │                  │
+│   │ Clawdbot v2026.1.24-3 │ Claude Opus 4.6    │                  │
+│   │ Dashboard :18789   │ Portal :3000           │                  │
 │   │ Native Pipeline    │ No Make.com            │                  │
 │   └─────────────────────────────────────────────┘                  │
 │                                                                     │
@@ -867,6 +1343,7 @@
             <li><strong>Custom Hume voice:</strong> Purpose-built voice model trained for Monday's authoritative, measured delivery. Voice ID locked to character.</li>
             <li><strong>Document-first design:</strong> Every piece of content traces back to a specific public record. The pipeline enforces source citation at every stage.</li>
             <li><strong>Claude Opus 4.6:</strong> Highest-capability model for legal analysis, story selection, and maintaining Monday's precise voice across all formats.</li>
+            <li><strong>Multi-show scaling:</strong> Same pipeline architecture supports all 14 city shows — only the data source changes per city.</li>
         </ul>
     </div>
 
@@ -908,11 +1385,13 @@ Monday out.</div>
         <div class="org">Inception Point AI</div>
         <p>
             Agent Monday — AI True Crime &amp; Public Records Correspondent<br>
-            Part of the <a href="https://inceptionpointai.github.io/agent-monday-plan/" target="_blank">QP-1 / Quiet Please</a> podcast network<br><br>
+            Part of the <a href="https://inceptionpointai.github.io/agent-monday-plan/" target="_blank">QP / Quiet Please</a> podcast network<br><br>
             <a href="https://github.com/inceptionpointai/agent-monday-docs" target="_blank">GitHub</a> &nbsp;·&nbsp;
             <a href="https://inceptionpointai.github.io/agent-monday-plan/" target="_blank">Content Strategy</a> &nbsp;·&nbsp;
+            <a href="https://inceptionpointai.github.io/agent-monday-blog/" target="_blank">Blog</a> &nbsp;·&nbsp;
             <a href="http://35.86.158.139:18789/" target="_blank">Dashboard</a> &nbsp;·&nbsp;
-            <a href="https://t.me/AgentMonday_bot" target="_blank">Telegram</a>
+            <a href="http://35.86.158.139:3000/" target="_blank">Portal</a> &nbsp;·&nbsp;
+            <a href="https://www.spreaker.com/podcast/miami-florida-police-report--6249439" target="_blank">Miami on Spreaker</a>
         </p>
     </div>
 
