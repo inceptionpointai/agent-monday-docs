@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Monday — Inception Point AI</title>
+    <meta name="description" content="Agent Monday: AI True Crime & Public Records Correspondent. System documentation and source of truth.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --monday-navy: #1a1a2e;
+            --monday-steel: #16213e;
+            --monday-amber: #d4a037;
+            --monday-amber-light: #e8b84a;
+            --monday-amber-dim: #b8892e;
+            --monday-bg: #0f0f1a;
+            --monday-surface: #1a1a2e;
+            --monday-surface-2: #212140;
+            --monday-text: #e0ddd5;
+            --monday-text-dim: #9a9790;
+            --monday-text-bright: #f5f3ee;
+            --monday-border: #2a2a45;
+            --monday-red: #c0392b;
+            --monday-green: #27ae60;
+            --monday-blue: #3498db;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--monday-bg);
+            color: var(--monday-text);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1060px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ── Header ── */
+        .header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            border-bottom: 1px solid var(--monday-border);
+            margin-bottom: 32px;
+        }
+
+        .header-badge {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75em;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--monday-amber);
+            border: 1px solid var(--monday-amber-dim);
+            padding: 6px 18px;
+            border-radius: 3px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            font-weight: 700;
+            color: var(--monday-text-bright);
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        h1 .amber { color: var(--monday-amber); }
+
+        .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1em;
+            color: var(--monday-text-dim);
+            font-weight: 300;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+        }
+
+        .tagline {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 0.95em;
+            color: var(--monday-text-dim);
+            margin-top: 16px;
+            opacity: 0.7;
+        }
+
+        /* ── Navigation ── */
+        .nav {
+            background: var(--monday-steel);
+            border: 1px solid var(--monday-border);
+            border-radius: 6px;
+            padding: 14px 24px;
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: var(--monday-text-dim);
+            text-decoration: none;
+            font-size: 0.85em;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+        }
+
+        .nav a:hover { color: var(--monday-amber); }
+
+        /* ── Sections ── */
+        .section {
+            background: var(--monday-surface);
+            border: 1px solid var(--monday-border);
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 24px;
+            border-left: 3px solid var(--monday-amber-dim);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            font-weight: 600;
+            color: var(--monday-text-bright);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--monday-border);
+        }
+
+        h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05em;
+            font-weight: 600;
+            color: var(--monday-amber);
+            margin: 24px 0 12px;
+        }
+
+        h3:first-of-type { margin-top: 8px; }
+
+        p {
+            margin-bottom: 14px;
+            color: var(--monday-text);
+        }
+
+        a {
+            color: var(--monday-amber);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--monday-amber-light);
+            text-decoration: underline;
+        }
+
+        /* ── Tables ── */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.92em;
+        }
+
+        th {
+            background: var(--monday-steel);
+            color: var(--monday-amber);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8em;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 2px solid var(--monday-amber-dim);
+        }
+
+        td {
+            padding: 11px 16px;
+            border-bottom: 1px solid var(--monday-border);
+            color: var(--monday-text);
+        }
+
+        tr:hover td {
+            background: rgba(212, 160, 55, 0.04);
+        }
+
+        .status-active { color: var(--monday-green); font-weight: 500; }
+        .status-ready { color: var(--monday-amber); font-weight: 500; }
+        .status-pending { color: var(--monday-blue); font-weight: 500; }
+
+        /* ── Pipeline Diagram ── */
+        .pipeline {
+            background: var(--monday-bg);
+            border: 1px solid var(--monday-border);
+            border-radius: 6px;
+            padding: 28px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .pipeline pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82em;
+            line-height: 1.8;
+            color: var(--monday-text);
+            white-space: pre;
+            margin: 0;
+        }
+
+        .pipeline .stage {
+            color: var(--monday-amber);
+            font-weight: 500;
+        }
+
+        .pipeline .detail {
+            color: var(--monday-text-dim);
+        }
+
+        /* ── Pipeline Visual (Horizontal) ── */
+        .pipeline-flow {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            margin: 20px 0;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+
+        .pipeline-stage {
+            background: var(--monday-steel);
+            border: 1px solid var(--monday-border);
+            border-radius: 6px;
+            padding: 14px 18px;
+            text-align: center;
+            min-width: 110px;
+            flex-shrink: 0;
+        }
+
+        .pipeline-stage .stage-icon {
+            font-size: 1.4em;
+            margin-bottom: 6px;
+        }
+
+        .pipeline-stage .stage-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72em;
+            font-weight: 500;
+            color: var(--monday-amber);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .pipeline-stage .stage-tool {
+            font-size: 0.72em;
+            color: var(--monday-text-dim);
+            margin-top: 3px;
+        }
+
+        .pipeline-arrow {
+            color: var(--monday-amber-dim);
+            font-size: 1.2em;
+            padding: 0 6px;
+            flex-shrink: 0;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ── Character Quote ── */
+        .quote-block {
+            background: var(--monday-bg);
+            border-left: 3px solid var(--monday-amber);
+            padding: 20px 24px;
+            margin: 20px 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .quote-block p {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.05em;
+            color: var(--monday-text);
+            margin: 0;
+        }
+
+        .quote-block .attribution {
+            font-family: 'Inter', sans-serif;
+            font-style: normal;
+            font-size: 0.82em;
+            color: var(--monday-text-dim);
+            margin-top: 10px;
+            display: block;
+        }
+
+        /* ── Sample Script ── */
+        .script-sample {
+            background: var(--monday-bg);
+            border: 1px solid var(--monday-border);
+            border-left: 3px solid var(--monday-amber-dim);
+            border-radius: 0 6px 6px 0;
+            padding: 24px;
+            margin: 16px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82em;
+            line-height: 1.9;
+            color: var(--monday-text);
+            white-space: pre-wrap;
+        }
+
+        /* ── Lists ── */
+        ul {
+            padding-left: 22px;
+            margin: 12px 0;
+        }
+
+        li {
+            margin: 6px 0;
+            color: var(--monday-text);
+        }
+
+        li::marker {
+            color: var(--monday-amber-dim);
+        }
+
+        /* ── Inline Code ── */
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--monday-bg);
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.88em;
+            color: var(--monday-amber);
+            border: 1px solid var(--monday-border);
+        }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 20px;
+            border-top: 1px solid var(--monday-border);
+            color: var(--monday-text-dim);
+            font-size: 0.82em;
+        }
+
+        .footer a {
+            color: var(--monday-amber-dim);
+        }
+
+        .footer .org {
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 700px) {
+            h1 { font-size: 2em; }
+            .nav { gap: 16px; padding: 12px 16px; }
+            .nav a { font-size: 0.8em; }
+            .section { padding: 20px; }
+            .pipeline-flow { flex-direction: column; }
+            .pipeline-arrow { transform: rotate(90deg); }
+            td, th { padding: 8px 10px; font-size: 0.85em; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <div class="header">
+        <div class="header-badge">Inception Point AI</div>
+        <h1>Agent <span class="amber">Monday</span></h1>
+        <div class="subtitle">AI True Crime &amp; Public Records Correspondent</div>
+        <div class="tagline">"The facts don't need your opinion. They need your attention."</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="#status">Status</a>
+        <a href="#character">Character</a>
+        <a href="#shows">Shows</a>
+        <a href="#pipeline">Pipeline</a>
+        <a href="#models">AI Models</a>
+        <a href="#sources">Data Sources</a>
+        <a href="#platforms">Platforms</a>
+        <a href="#architecture">Architecture</a>
+    </nav>
+
+    <!-- System Status -->
+    <div class="section" id="status">
+        <h2>🔍 System Status</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>Technology</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Brain</td>
+                    <td>Claude Opus 4.6 (Anthropic)</td>
+                    <td class="status-active">✅ Active</td>
+                </tr>
+                <tr>
+                    <td>Voice</td>
+                    <td>Hume TTS — Custom Voice</td>
+                    <td class="status-active">✅ Active</td>
+                </tr>
+                <tr>
+                    <td>Data Pipeline</td>
+                    <td>Native (Court Feeds, DOJ, SEC)</td>
+                    <td class="status-active">✅ Active</td>
+                </tr>
+                <tr>
+                    <td>Server</td>
+                    <td>AWS EC2 — t3.small (Ubuntu 24.04)</td>
+                    <td class="status-active">✅ Active</td>
+                </tr>
+                <tr>
+                    <td>Dashboard</td>
+                    <td>Clawdbot</td>
+                    <td class="status-active">✅ Active</td>
+                </tr>
+                <tr>
+                    <td>Publishing</td>
+                    <td>Spreaker (QP-1 Network)</td>
+                    <td class="status-ready">⏳ Ready</td>
+                </tr>
+                <tr>
+                    <td>Video Generation</td>
+                    <td>LTX Video</td>
+                    <td class="status-ready">⏳ Ready</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size: 0.82em; color: var(--monday-text-dim); margin-top: 12px;">
+            Server: <code>ipai-monday</code> at <code>35.86.158.139</code> &nbsp;|&nbsp;
+            Dashboard: <a href="http://35.86.158.139:18789/" target="_blank">Clawdbot Panel</a> &nbsp;|&nbsp;
+            Hume Voice ID: <code>889dba79-8337-498d-9340-5009cbc71c18</code>
+        </p>
+    </div>
+
+    <!-- Character Overview -->
+    <div class="section" id="character">
+        <h2>🎭 Character Overview</h2>
+        
+        <div class="quote-block">
+            <p>Monday's report. Three indictments. Two plea deals. One very expensive lawyer.</p>
+            <span class="attribution">— Agent Monday, opening signature</span>
+        </div>
+
+        <table>
+            <tbody>
+                <tr><td style="width:160px; color: var(--monday-amber);">Name</td><td>Agent Monday</td></tr>
+                <tr><td style="color: var(--monday-amber);">Role</td><td>AI True Crime &amp; Public Records Correspondent</td></tr>
+                <tr><td style="color: var(--monday-amber);">Network</td><td>QP-1 / Quiet Please — Inception Point AI</td></tr>
+                <tr><td style="color: var(--monday-amber);">Voice</td><td>Authoritative male, mid-range, measured pace. Newsroom gravitas with dry wit.</td></tr>
+                <tr><td style="color: var(--monday-amber);">Age Feel</td><td>Mid-40s — experienced enough to be credible, sharp enough to be dangerous</td></tr>
+                <tr><td style="color: var(--monday-amber);">The Pitch</td><td>The investigative voice who reads every court filing so you don't have to — then tells you the one line that changes everything.</td></tr>
+                <tr><td style="color: var(--monday-amber);">Differentiator</td><td>The <em>only</em> true crime content built entirely on verifiable public records, produced daily by AI, with every claim sourced to a specific document.</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Personality Traits</h3>
+        <ul>
+            <li><strong>Precision:</strong> Cites specific documents, case numbers, dates. Vague claims aren't his style.</li>
+            <li><strong>Dry Wit:</strong> "The defendant's attorney described the plea deal as 'fair.' The 247 pages of evidence suggest the prosecution had a different word in mind."</li>
+            <li><strong>Narrative Instinct:</strong> Finds the human story inside the legal filing. The mother who testified. The timestamp that doesn't add up.</li>
+            <li><strong>Restraint:</strong> Never speculates on guilt. "Alleged" isn't a decoration — it's a legal reality he respects.</li>
+            <li><strong>Timing:</strong> Knows when a case is heating up, when a verdict is coming. Not chasing — anticipating.</li>
+        </ul>
+
+        <h3>Content Principles</h3>
+        <ul>
+            <li><strong>Public record only.</strong> If it's not in a court filing, police report, or government document, Monday doesn't report it.</li>
+            <li><strong>Presumption of innocence.</strong> Always. Every time. No exceptions.</li>
+            <li><strong>Victim respect.</strong> No minors named. No gratuitous details. The story is the system, not the suffering.</li>
+            <li><strong>Source everything.</strong> Case numbers, filing dates, jurisdictions. The audience can verify anything.</li>
+        </ul>
+
+        <p style="margin-top: 16px;">
+            <a href="https://inceptionpointai.github.io/agent-monday-plan/" target="_blank">View Full Character Bible &amp; Content Strategy →</a>
+        </p>
+    </div>
+
+    <!-- Show Formats -->
+    <div class="section" id="shows">
+        <h2>📋 Show Formats</h2>
+        <p>Six distinct formats covering the full spectrum of crime and public records — from daily briefings to deep investigative work.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Show</th>
+                    <th>Frequency</th>
+                    <th>Duration</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Monday's Report</strong></td>
+                    <td>Daily</td>
+                    <td>5–10 min</td>
+                    <td>Daily briefing from the public record. 3–5 stories: what was filed, who's involved, why it matters.</td>
+                </tr>
+                <tr>
+                    <td><strong>The Docket</strong></td>
+                    <td>2× / week</td>
+                    <td>10–15 min</td>
+                    <td>Deep-dive into a single active case. Full narrative treatment from actual court filings.</td>
+                </tr>
+                <tr>
+                    <td><strong>Cold Case Monday</strong></td>
+                    <td>Weekly</td>
+                    <td>15–20 min</td>
+                    <td>Resurfaced old cases with interesting public records. Unsolved cases where the record tells a story.</td>
+                </tr>
+                <tr>
+                    <td><strong>White Collar Wednesday</strong></td>
+                    <td>Weekly</td>
+                    <td>10–15 min</td>
+                    <td>SEC enforcement, federal fraud indictments, financial crime. Follow the money.</td>
+                </tr>
+                <tr>
+                    <td><strong>Breaking</strong></td>
+                    <td>As needed</td>
+                    <td>3–5 min</td>
+                    <td>Major arrest, indictment, or verdict. Rapid-turn factual briefing — no speculation.</td>
+                </tr>
+                <tr>
+                    <td><strong>The Booking Log</strong></td>
+                    <td>Weekly</td>
+                    <td>8–12 min</td>
+                    <td>County booking logs, local arrest records, notable charges. The stories that don't make national news.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Content Pipeline -->
+    <div class="section" id="pipeline">
+        <h2>⚡ Content Pipeline</h2>
+        <p>End-to-end production from data collection to distribution — no Make.com, fully native pipeline.</p>
+
+        <h3>Pipeline Flow</h3>
+
+        <div class="pipeline-flow">
+            <div class="pipeline-stage">
+                <div class="stage-icon">📡</div>
+                <div class="stage-name">Collect</div>
+                <div class="stage-tool">Court Feeds</div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-stage">
+                <div class="stage-icon">🎯</div>
+                <div class="stage-name">Select</div>
+                <div class="stage-tool">Story Triage</div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-stage">
+                <div class="stage-icon">✍️</div>
+                <div class="stage-name">Script</div>
+                <div class="stage-tool">Claude Opus</div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-stage">
+                <div class="stage-icon">🎙️</div>
+                <div class="stage-name">Voice</div>
+                <div class="stage-tool">Hume TTS</div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-stage">
+                <div class="stage-icon">🔧</div>
+                <div class="stage-name">Assemble</div>
+                <div class="stage-tool">Audio/Video</div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-stage">
+                <div class="stage-icon">📤</div>
+                <div class="stage-name">Publish</div>
+                <div class="stage-tool">Spreaker</div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-stage">
+                <div class="stage-icon">🌐</div>
+                <div class="stage-name">Distribute</div>
+                <div class="stage-tool">Multi-Platform</div>
+            </div>
+        </div>
+
+        <h3>Podcast Pipeline</h3>
+        <div class="pipeline">
+<pre><span class="stage">Data Feeds</span> → <span class="stage">Story Selection</span> → <span class="stage">Script (Claude)</span> → <span class="stage">TTS (Hume)</span> → <span class="stage">Assembly</span> → <span class="stage">Publish (Spreaker)</span>
+    <span class="detail">│</span>              <span class="detail">│</span>                 <span class="detail">│</span>               <span class="detail">│</span>             <span class="detail">│</span>              <span class="detail">│</span>
+  <span class="detail">PACER, DOJ</span>    <span class="detail">Relevance +</span>       <span class="detail">~10s</span>          <span class="detail">~30s</span>       <span class="detail">+Intro/Outro</span>   <span class="detail">Auto-Publish</span>
+  <span class="detail">SEC, FBI</span>      <span class="detail">Public Interest</span>                                 <span class="detail">+ Metadata</span></pre>
+        </div>
+
+        <h3>Video Pipeline</h3>
+        <div class="pipeline">
+<pre><span class="stage">Script</span> → <span class="stage">TTS Audio</span> → <span class="stage">Title Slate</span> → <span class="stage">B-Roll Gen</span> → <span class="stage">Composite</span> → <span class="stage">Upload</span>
+  <span class="detail">│</span>          <span class="detail">│</span>             <span class="detail">│</span>              <span class="detail">│</span>             <span class="detail">│</span>            <span class="detail">│</span>
+<span class="detail">~10s</span>      <span class="detail">~30s</span>       <span class="detail">Monday +</span>     <span class="detail">3-4 LTX</span>     <span class="detail">ffmpeg</span>     <span class="detail">YouTube/</span>
+                     <span class="detail">Case Info</span>      <span class="detail">clips</span>                    <span class="detail">Reels</span></pre>
+        </div>
+
+        <p style="font-size: 0.88em; color: var(--monday-text-dim); margin-top: 16px;">
+            Podcast: ~2 minutes end-to-end &nbsp;|&nbsp; Cost: ~$0.05/episode &nbsp;&nbsp;•&nbsp;&nbsp;
+            Video Short: ~5 minutes end-to-end &nbsp;|&nbsp; Cost: ~$0.25/short
+        </p>
+    </div>
+
+    <!-- AI Models by Task -->
+    <div class="section" id="models">
+        <h2>🧠 AI Models by Task</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Model / Tool</th>
+                    <th>Why This Choice</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Research &amp; Data Collection</td>
+                    <td>Perplexity + Custom Scrapers</td>
+                    <td>Real-time web search, court record parsing, up-to-date legal info</td>
+                </tr>
+                <tr>
+                    <td>Story Selection &amp; Triage</td>
+                    <td>Claude Opus 4.6</td>
+                    <td>Complex reasoning about newsworthiness, public interest, legal significance</td>
+                </tr>
+                <tr>
+                    <td>Script Writing</td>
+                    <td>Claude Opus 4.6</td>
+                    <td>Creative writing with precise legal language, character voice consistency</td>
+                </tr>
+                <tr>
+                    <td>SEO &amp; Metadata</td>
+                    <td>Claude Haiku</td>
+                    <td>Fast, cheap, structured output for titles, tags, descriptions</td>
+                </tr>
+                <tr>
+                    <td>Voice Synthesis</td>
+                    <td>Hume TTS (Custom Voice)</td>
+                    <td>Custom Monday voice — authoritative, measured, newsroom gravitas</td>
+                </tr>
+                <tr>
+                    <td>Image Generation</td>
+                    <td>Flux (via PiAPI)</td>
+                    <td>Fast, high quality thumbnails and social assets</td>
+                </tr>
+                <tr>
+                    <td>Video B-Roll</td>
+                    <td>LTX Video</td>
+                    <td>Fast generation, 1080p+, courtroom/legal visuals</td>
+                </tr>
+                <tr>
+                    <td>Orchestration</td>
+                    <td>CB (Claude Opus) / Clawdbot</td>
+                    <td>Pipeline coordination, scheduling, quality control</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Data Sources -->
+    <div class="section" id="sources">
+        <h2>📁 Data Sources</h2>
+        <p>Monday reports exclusively from public records. Every claim is sourced, every case number verifiable.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Source</th>
+                    <th>Type</th>
+                    <th>Coverage</th>
+                    <th>URL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>PACER</strong></td>
+                    <td>Federal Court Records</td>
+                    <td>All federal district, bankruptcy, and appellate courts</td>
+                    <td><a href="https://pacer.uscourts.gov" target="_blank">pacer.uscourts.gov</a></td>
+                </tr>
+                <tr>
+                    <td><strong>DOJ Press Releases</strong></td>
+                    <td>Federal Law Enforcement</td>
+                    <td>Indictments, arrests, sentencings, investigations</td>
+                    <td><a href="https://www.justice.gov/news" target="_blank">justice.gov/news</a></td>
+                </tr>
+                <tr>
+                    <td><strong>SEC Enforcement</strong></td>
+                    <td>Securities &amp; Financial</td>
+                    <td>Enforcement actions, litigation releases, fraud cases</td>
+                    <td><a href="https://www.sec.gov/litigation/litreleases.htm" target="_blank">sec.gov/litigation</a></td>
+                </tr>
+                <tr>
+                    <td><strong>FBI Most Wanted</strong></td>
+                    <td>Federal Fugitives</td>
+                    <td>Most wanted lists, captured updates, case summaries</td>
+                    <td><a href="https://www.fbi.gov/wanted" target="_blank">fbi.gov/wanted</a></td>
+                </tr>
+                <tr>
+                    <td><strong>State Courts</strong></td>
+                    <td>State-Level Records</td>
+                    <td>Varies by state — criminal, civil, family court filings</td>
+                    <td><em>Varies by jurisdiction</em></td>
+                </tr>
+                <tr>
+                    <td><strong>County Booking Logs</strong></td>
+                    <td>Local Arrest Records</td>
+                    <td>Daily booking/intake logs from county jails and sheriff offices</td>
+                    <td><em>Varies by county</em></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Target Platforms -->
+    <div class="section" id="platforms">
+        <h2>🎯 Target Platforms</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Platform</th>
+                    <th>Content Type</th>
+                    <th>Frequency Target</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Spreaker</strong> (QP-1 Network)</td>
+                    <td>Podcast episodes (3–30 min)</td>
+                    <td>1–3 per day</td>
+                </tr>
+                <tr>
+                    <td><strong>YouTube</strong></td>
+                    <td>Long-form video (5–20 min)</td>
+                    <td>3–5 per week</td>
+                </tr>
+                <tr>
+                    <td><strong>YouTube Shorts</strong></td>
+                    <td>Vertical video (30–60s)</td>
+                    <td>1–2 per day</td>
+                </tr>
+                <tr>
+                    <td><strong>TikTok / Reels</strong></td>
+                    <td>Short-form video (15–60s)</td>
+                    <td>1–2 per day</td>
+                </tr>
+                <tr>
+                    <td><strong>X / Twitter</strong></td>
+                    <td>Case threads, filing excerpts, breaking alerts</td>
+                    <td>3–5 per day</td>
+                </tr>
+                <tr>
+                    <td><strong>Instagram</strong></td>
+                    <td>Reels, story cards, case summaries</td>
+                    <td>1–2 per day</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Architecture -->
+    <div class="section" id="architecture">
+        <h2>🏗️ Architecture</h2>
+        <p>Fully self-contained on a single EC2 instance. No Make.com — the entire pipeline runs natively via Clawdbot orchestration.</p>
+
+        <div class="pipeline">
+<pre>
+┌─────────────────────────────────────────────────────────────────────┐
+│                        <span class="stage">AGENT MONDAY — ARCHITECTURE</span>                      │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│   <span class="stage">DATA LAYER</span>                    <span class="stage">BRAIN</span>                              │
+│   ┌──────────────┐            ┌──────────────────┐                 │
+│   │ PACER        │──┐         │ Claude Opus 4.6  │                 │
+│   │ DOJ Releases │──┤         │ (Anthropic)      │                 │
+│   │ SEC Enforce  │──┼────────▶│                  │                 │
+│   │ FBI Wanted   │──┤         │ • Story Triage   │                 │
+│   │ State Courts │──┤         │ • Script Writing  │                 │
+│   │ Booking Logs │──┘         │ • Quality Control │                 │
+│   └──────────────┘            └────────┬─────────┘                 │
+│                                        │                            │
+│                                        ▼                            │
+│   <span class="stage">VOICE</span>                       <span class="stage">PRODUCTION</span>                         │
+│   ┌──────────────┐            ┌──────────────────┐                 │
+│   │ Hume TTS     │            │ Audio Assembly    │                 │
+│   │ Custom Voice │◀───────────│ ffmpeg            │                 │
+│   │ ID: 889d...  │            │ Intro/Outro/Music │                 │
+│   └──────┬───────┘            └────────┬─────────┘                 │
+│          │                             │                            │
+│          ▼                             ▼                            │
+│   <span class="stage">PUBLISHING</span>                  <span class="stage">DISTRIBUTION</span>                       │
+│   ┌──────────────┐            ┌──────────────────┐                 │
+│   │ Spreaker     │            │ YouTube           │                 │
+│   │ (QP-1)       │            │ TikTok / Reels    │                 │
+│   │              │            │ X / Twitter        │                 │
+│   │              │            │ Instagram          │                 │
+│   └──────────────┘            └──────────────────┘                 │
+│                                                                     │
+│   <span class="stage">INFRASTRUCTURE</span>                                                    │
+│   ┌─────────────────────────────────────────────┐                  │
+│   │ AWS EC2 (t3.small) │ Ubuntu 24.04           │                  │
+│   │ Clawdbot Dashboard │ http://35.86.158.139   │                  │
+│   │ Native Pipeline    │ No Make.com            │                  │
+│   └─────────────────────────────────────────────┘                  │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+</pre>
+        </div>
+
+        <h3>Key Architectural Decisions</h3>
+        <ul>
+            <li><strong>Native pipeline:</strong> No Make.com dependency. All orchestration runs through Clawdbot on the server, giving full control and no workflow limits.</li>
+            <li><strong>Single instance:</strong> Entire system on one t3.small EC2 — brain, data collection, TTS coordination, publishing all co-located.</li>
+            <li><strong>Custom Hume voice:</strong> Purpose-built voice model trained for Monday's authoritative, measured delivery. Voice ID locked to character.</li>
+            <li><strong>Document-first design:</strong> Every piece of content traces back to a specific public record. The pipeline enforces source citation at every stage.</li>
+            <li><strong>Claude Opus 4.6:</strong> Highest-capability model for legal analysis, story selection, and maintaining Monday's precise voice across all formats.</li>
+        </ul>
+    </div>
+
+    <!-- Sample Script -->
+    <div class="section" id="sample">
+        <h2>🎙️ Sample Script</h2>
+        <p>What a typical Monday's Report episode sounds like:</p>
+        <div class="script-sample">Monday's report.
+
+The Southern District of New York unsealed a 47-count indictment 
+this morning against three individuals connected to what prosecutors 
+are calling "one of the largest Medicare fraud schemes in the 
+district's history."
+
+The filing — case number 26-CR-1847 — alleges that between 2022 
+and 2025, the defendants billed Medicare for approximately $180 
+million in services that were either never performed or medically 
+unnecessary.
+
+$180 million. For context, that's roughly the budget of a Marvel 
+movie. Except in this case, nobody got a movie.
+
+The lead defendant, a licensed physician, was taken into custody 
+early this morning. All three were arraigned before Magistrate 
+Judge Torres and released on bond conditions that include surrender 
+of passports and electronic monitoring.
+
+If convicted on all counts, the lead defendant faces up to 20 years 
+per count. That's the kind of math that makes plea deals very 
+attractive.
+
+We'll follow the record as it develops.
+
+Monday out.</div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="org">Inception Point AI</div>
+        <p>
+            Agent Monday — AI True Crime &amp; Public Records Correspondent<br>
+            Part of the <a href="https://inceptionpointai.github.io/agent-monday-plan/" target="_blank">QP-1 / Quiet Please</a> podcast network<br><br>
+            <a href="https://github.com/inceptionpointai/agent-monday-docs" target="_blank">GitHub</a> &nbsp;·&nbsp;
+            <a href="https://inceptionpointai.github.io/agent-monday-plan/" target="_blank">Content Strategy</a> &nbsp;·&nbsp;
+            <a href="http://35.86.158.139:18789/" target="_blank">Dashboard</a>
+        </p>
+    </div>
+
+</div>
+
+</body>
+</html>
