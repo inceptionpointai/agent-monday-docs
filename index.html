@@ -483,6 +483,7 @@
     <nav class="nav">
         <a href="#quick-links">🔗 Links</a>
         <a href="#portal">🎛️ Portal</a>
+        <a href="#qc">🛡️ QC</a>
         <a href="#status">Status</a>
         <a href="#spreaker-shows">Spreaker</a>
         <a href="#episodes">Episodes</a>
@@ -557,6 +558,148 @@
             </div>
         </div>
         <a href="http://35.86.158.139:3000/" target="_blank" style="display:inline-block;background:var(--monday-amber);color:var(--monday-bg);padding:0.75rem 2rem;text-decoration:none;font-weight:700;border-radius:3px;font-size:0.95rem;">Open Content Portal →</a>
+    </div>
+
+    <!-- QC & Compliance -->
+    <div class="section" id="qc" style="border-left-color: var(--monday-green);">
+        <h2>🛡️ Quality Control &amp; Compliance</h2>
+        <p>Every piece of content Agent Monday produces passes through a <strong>multi-layered quality assurance pipeline</strong> before it reaches any platform. QC is built into every stage — from research to publishing.</p>
+
+        <!-- QC Status Overview -->
+        <table>
+            <thead>
+                <tr>
+                    <th>QC Layer</th>
+                    <th>What It Does</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="indicator indicator-green"></span><strong>AI-Native QA</strong></td>
+                    <td>Claude Opus 4.6 generation with character bible enforcement</td>
+                    <td class="status-active">✅ Active</td>
+                </tr>
+                <tr>
+                    <td><span class="indicator indicator-green"></span><strong>Platform Compliance</strong></td>
+                    <td>Automated checks against all distribution platform policies</td>
+                    <td class="status-active">✅ Active</td>
+                </tr>
+                <tr>
+                    <td><span class="indicator indicator-green"></span><strong>Human-in-the-Loop</strong></td>
+                    <td>Content Review Portal — approve/reject before publishing</td>
+                    <td class="status-active">✅ Active</td>
+                </tr>
+                <tr>
+                    <td><span class="indicator indicator-green"></span><strong>Arc-Compatible QC</strong></td>
+                    <td>QUALITAS-style scoring, refusal detection, automated retry</td>
+                    <td class="status-active">✅ Active</td>
+                </tr>
+                <tr>
+                    <td><span class="indicator indicator-green"></span><strong>Continuous Monitoring</strong></td>
+                    <td>PostHog analytics, platform feedback loops, alerting</td>
+                    <td class="status-active">✅ Active</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 1. AI-Native QA -->
+        <h3>🧠 1. AI-Native Quality Assurance</h3>
+        <div style="background:var(--monday-bg);border:1px solid var(--monday-border);border-left:3px solid var(--monday-green);border-radius:0 6px 6px 0;padding:20px 24px;margin:12px 0;">
+            <ul>
+                <li>Runs on <strong>Claude Opus 4.6</strong> — the most capable AI model available</li>
+                <li><strong>Character bible</strong> defines editorial boundaries, tone, legal language requirements, and content guidelines</li>
+                <li>Every script, title, description, and tag passes through <strong>automated quality checks</strong> before publishing</li>
+                <li>Built-in <strong>refusal detection</strong> — flags and blocks content that doesn't meet standards</li>
+                <li><strong>Soft refusal pattern matching</strong> — catches subtle quality issues (hedging, speculation, off-brand tone, vague sourcing)</li>
+                <li>Enforces Monday's <strong>public-record-only</strong> standard — no unsourced claims pass through</li>
+            </ul>
+        </div>
+
+        <!-- 2. Platform Compliance -->
+        <h3>📋 2. Platform Compliance Checks</h3>
+        <p>Agent Monday is trained to comply with the terms of service and content policies of <strong>all major distribution platforms</strong>:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Platform</th>
+                    <th>Compliance Area</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Spotify / Megaphone</strong></td>
+                    <td>Content policies, explicit content guidelines, metadata requirements</td>
+                    <td class="status-active">✅</td>
+                </tr>
+                <tr>
+                    <td><strong>Apple Podcasts</strong></td>
+                    <td>Apple Podcasts content guidelines, no prohibited content categories</td>
+                    <td class="status-active">✅</td>
+                </tr>
+                <tr>
+                    <td><strong>YouTube</strong></td>
+                    <td>Community guidelines, advertiser-friendly content policies, copyright compliance</td>
+                    <td class="status-active">✅</td>
+                </tr>
+                <tr>
+                    <td><strong>Instagram / Meta</strong></td>
+                    <td>Community guidelines, content recommendations policies</td>
+                    <td class="status-active">✅</td>
+                </tr>
+                <tr>
+                    <td><strong>TikTok</strong></td>
+                    <td>Community guidelines, content integrity policies</td>
+                    <td class="status-active">✅</td>
+                </tr>
+                <tr>
+                    <td><strong>Spreaker</strong></td>
+                    <td>Platform ToS and content standards</td>
+                    <td class="status-active">✅</td>
+                </tr>
+                <tr>
+                    <td><strong>Social Media (General)</strong></td>
+                    <td>No hate speech, misinformation, harassment, or prohibited content</td>
+                    <td class="status-active">✅</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 3. Human-in-the-Loop -->
+        <h3>👤 3. Human-in-the-Loop Approval</h3>
+        <div style="background:var(--monday-bg);border:1px solid var(--monday-border);border-left:3px solid var(--monday-amber);border-radius:0 6px 6px 0;padding:20px 24px;margin:12px 0;">
+            <ul>
+                <li><strong>Content Review Portal</strong> for human review before publishing — <a href="http://35.86.158.139:3000/" target="_blank">Open Portal →</a></li>
+                <li><strong>Approve/reject workflow</strong> with feedback loops — rejected content is logged and learned from</li>
+                <li><strong>Editorial oversight</strong> on titles, descriptions, tags, and metadata</li>
+                <li><strong>Nothing publishes</strong> without passing through review gates — zero unreviewed content reaches platforms</li>
+            </ul>
+        </div>
+
+        <!-- 4. Arc-Compatible QC -->
+        <h3>🔄 4. Arc-Compatible Quality Gates</h3>
+        <div style="background:var(--monday-bg);border:1px solid var(--monday-border);border-left:3px solid #9b59b6;border-radius:0 6px 6px 0;padding:20px 24px;margin:12px 0;">
+            <p style="margin-bottom:10px;">QC process is designed to be compatible with and can adopt <strong>Arc's quality gates</strong>:</p>
+            <ul>
+                <li><strong>QUALITAS-style automated quality scoring</strong> — numeric quality scores on every generation</li>
+                <li><strong>Refusal detection</strong> (Sonnet-level analysis) for subtle refusal patterns — hedging, avoidance, off-topic drift</li>
+                <li><strong>Content rating &amp; appropriateness checks</strong> — audience suitability verified before distribution</li>
+                <li><strong>Automated retry on quality failures</strong> — content below threshold is regenerated automatically</li>
+                <li><strong>Script validation before TTS generation</strong> — ensures audio-ready scripts meet all requirements</li>
+            </ul>
+        </div>
+
+        <!-- 5. Continuous Monitoring -->
+        <h3>📊 5. Continuous Monitoring</h3>
+        <div style="background:var(--monday-bg);border:1px solid var(--monday-border);border-left:3px solid #e67e22;border-radius:0 6px 6px 0;padding:20px 24px;margin:12px 0;">
+            <ul>
+                <li><strong>PostHog analytics</strong> for content performance tracking across all platforms</li>
+                <li><strong>Platform feedback loop</strong> — content that gets flagged is analyzed and rules are updated</li>
+                <li><strong>Regular character bible updates</strong> based on compliance learnings and audience feedback</li>
+                <li><strong>Automated alerting</strong> on quality threshold violations — issues are caught and addressed in real-time</li>
+            </ul>
+        </div>
     </div>
 
     <!-- System Status -->
