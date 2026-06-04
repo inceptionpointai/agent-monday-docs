@@ -510,6 +510,7 @@
         <a href="#services">Services</a>
         <a href="#repos">Repos</a>
         <a href="#sources">Sources</a>
+        <a href="#signals">📡 Signals</a>
         <a href="#platforms">Platforms</a>
         <a href="#architecture">Architecture</a>
     </nav>
@@ -1388,6 +1389,198 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+
+    <!-- Signals Intelligence -->
+    <div class="section" id="signals" style="border-left-color: var(--monday-amber);">
+        <h2>📡 Signals — How Monday Finds Stories</h2>
+        <p>Every episode starts with signal collection — automated searches across multiple data layers that surface the stories worth telling. Here's the full signal stack and how to extend it.</p>
+
+        <h3>🔍 Active Signal Sources</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Signal Type</th>
+                    <th>Method</th>
+                    <th>Frequency</th>
+                    <th>What It Catches</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>City Crime Search</strong></td>
+                    <td>Brave Search API</td>
+                    <td>Daily per show</td>
+                    <td>Local arrests, shootings, robberies, notable incidents from the last 24–48 hours</td>
+                </tr>
+                <tr>
+                    <td><strong>City Arrest Search</strong></td>
+                    <td>Brave Search API</td>
+                    <td>Daily per show</td>
+                    <td>County-level arrest reports, booking log entries, warrant services</td>
+                </tr>
+                <tr>
+                    <td><strong>City Police Report</strong></td>
+                    <td>Brave Search API</td>
+                    <td>Daily per show</td>
+                    <td>Official police department press releases, incident reports, community alerts</td>
+                </tr>
+                <tr>
+                    <td><strong>DOJ Press Releases</strong></td>
+                    <td>Web fetch (justice.gov/news)</td>
+                    <td>Daily (Police Blotter)</td>
+                    <td>Federal indictments, plea deals, sentencings, major investigations</td>
+                </tr>
+                <tr>
+                    <td><strong>SEC Enforcement</strong></td>
+                    <td>Web fetch (sec.gov)</td>
+                    <td>As needed</td>
+                    <td>Securities fraud, insider trading, Ponzi schemes, financial crime</td>
+                </tr>
+                <tr>
+                    <td><strong>FBI Most Wanted</strong></td>
+                    <td>Web fetch (fbi.gov)</td>
+                    <td>Weekly scan</td>
+                    <td>Fugitive updates, captures, new additions to wanted lists</td>
+                </tr>
+                <tr>
+                    <td><strong>County Booking Logs</strong></td>
+                    <td>Direct web scrape (varies)</td>
+                    <td>Daily where available</td>
+                    <td>Raw booking data — names, charges, booking times, bond amounts</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>🏙️ Per-City Search Queries</h3>
+        <p>Each of the 14 shows uses a city-specific search pattern. Three queries per city, per day:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Show</th>
+                    <th>Query 1</th>
+                    <th>Query 2</th>
+                    <th>Query 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Miami</strong></td><td>"Miami crime news today"</td><td>"Miami-Dade arrests"</td><td>"Miami police report"</td></tr>
+                <tr><td><strong>Orlando</strong></td><td>"Orlando crime news today"</td><td>"Orange County Florida arrests"</td><td>"Orlando police report"</td></tr>
+                <tr><td><strong>Austin</strong></td><td>"Austin crime news today"</td><td>"Austin Texas arrests"</td><td>"Travis County crime report"</td></tr>
+                <tr><td><strong>St. Louis</strong></td><td>"St. Louis crime news today"</td><td>"St. Louis police report"</td><td>"St. Louis County arrests"</td></tr>
+                <tr><td><strong>Aurora</strong></td><td>"Aurora Colorado crime news today"</td><td>"Aurora police report"</td><td>"Arapahoe County arrests"</td></tr>
+                <tr><td><strong>Chandler</strong></td><td>"Chandler Arizona crime news today"</td><td>"Chandler police report"</td><td>"Maricopa County Chandler arrests"</td></tr>
+                <tr><td><strong>Colorado Springs</strong></td><td>"Colorado Springs crime news today"</td><td>"Colorado Springs police report"</td><td>"El Paso County Colorado arrests"</td></tr>
+                <tr><td><strong>Fresno</strong></td><td>"Fresno crime news today"</td><td>"Fresno police report"</td><td>"Fresno County arrests"</td></tr>
+                <tr><td><strong>Henderson</strong></td><td>"Henderson Nevada crime news today"</td><td>"Henderson police report"</td><td>"Clark County Henderson arrests"</td></tr>
+                <tr><td><strong>Mesa</strong></td><td>"Mesa Arizona crime news today"</td><td>"Mesa police report"</td><td>"Maricopa County Mesa arrests"</td></tr>
+                <tr><td><strong>Omaha</strong></td><td>"Omaha crime news today"</td><td>"Omaha police report"</td><td>"Douglas County Nebraska arrests"</td></tr>
+                <tr><td><strong>Sacramento</strong></td><td>"Sacramento crime news today"</td><td>"Sacramento police report"</td><td>"Sacramento County arrests"</td></tr>
+                <tr><td><strong>Tulsa</strong></td><td>"Tulsa crime news today"</td><td>"Tulsa police report"</td><td>"Tulsa County arrests"</td></tr>
+                <tr><td><strong>Police Blotter</strong></td><td>"major US crime news today"</td><td>"notable arrests today"</td><td>"federal indictments"</td></tr>
+            </tbody>
+        </table>
+
+        <h3>⚙️ Signal Processing Pipeline</h3>
+        <p>Raw signals go through a triage pipeline before becoming stories:</p>
+        <div class="pipeline">
+<pre>
+  📡 SIGNAL IN          🎯 TRIAGE              ✍️ SCRIPT              🎙️ AIR
+  ┌────────────┐       ┌────────────────┐      ┌──────────────┐      ┌──────────┐
+  │ Brave API  │──────▶│ Relevance      │─────▶│ Source verify │─────▶│ Episode  │
+  │ DOJ feeds  │       │ Recency        │      │ Write script  │      │ goes out │
+  │ SEC data   │       │ Public record? │      │ Legal review  │      │          │
+  │ FBI lists  │       │ Local impact?  │      │ Voice/tone    │      │          │
+  └────────────┘       └────────────────┘      └──────────────┘      └──────────┘
+                              │
+                              ▼ REJECT
+                       Not sourced / too old /
+                       no public record basis /
+                       minor victim identified
+</pre>
+        </div>
+
+        <h3>🔧 How to Add a New Signal</h3>
+        <p>Expanding Monday's signal coverage is straightforward. Here's the process for each type:</p>
+
+        <h4>➕ Add a New City Show</h4>
+        <ol>
+            <li><strong>Create the show</strong> on Megaphone FM and note the podcast ID</li>
+            <li><strong>Define search queries</strong> — 3 queries following the pattern: "[City] crime news today", "[City] police report", "[County] arrests"</li>
+            <li><strong>Add to HEARTBEAT.md</strong> — add the show entry with Show ID, search queries, tags, and title format</li>
+            <li><strong>Add Megaphone mapping</strong> — add the podcast ID to <code>~/monday/megaphone-config.json</code></li>
+            <li><strong>Test</strong> — run one episode manually to verify the signal-to-publish pipeline works</li>
+        </ol>
+
+        <h4>➕ Add a New Data Feed</h4>
+        <ol>
+            <li><strong>Identify the source</strong> — must be public record (court filings, government press releases, official reports)</li>
+            <li><strong>Determine access method</strong> — Brave Search API, direct web fetch, or RSS feed</li>
+            <li><strong>Add to signal collection</strong> — update the research phase in the production pipeline</li>
+            <li><strong>Define triage rules</strong> — what makes a story from this source worth covering?</li>
+            <li><strong>Update TOOLS.md</strong> — document the new source in the Data Sources section</li>
+        </ol>
+
+        <h4>➕ Add a New Search Query to Existing Shows</h4>
+        <ol>
+            <li><strong>Edit HEARTBEAT.md</strong> — add the new search term to the show's Search field</li>
+            <li><strong>Keep queries specific</strong> — county-level and city-specific queries outperform broad state-level ones</li>
+            <li><strong>Test for noise</strong> — run the query through Brave Search first to verify it returns relevant, recent crime news</li>
+        </ol>
+
+        <h3>📊 Signal Quality Indicators</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Indicator</th>
+                    <th>Strong Signal ✅</th>
+                    <th>Weak Signal ⚠️</th>
+                    <th>Reject ❌</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Recency</strong></td>
+                    <td>Last 24 hours</td>
+                    <td>24–72 hours</td>
+                    <td>Older than a week (unless cold case)</td>
+                </tr>
+                <tr>
+                    <td><strong>Source Quality</strong></td>
+                    <td>Court filing, police report, DOJ release</td>
+                    <td>Local news citing official sources</td>
+                    <td>Social media, unverified tips, rumor</td>
+                </tr>
+                <tr>
+                    <td><strong>Public Record Basis</strong></td>
+                    <td>Case number, booking number, filing date available</td>
+                    <td>Official statement but no document cited</td>
+                    <td>No verifiable public record</td>
+                </tr>
+                <tr>
+                    <td><strong>Local Relevance</strong></td>
+                    <td>Occurred in the show's coverage area</td>
+                    <td>Adjacent county/metro area</td>
+                    <td>No geographic connection to show</td>
+                </tr>
+                <tr>
+                    <td><strong>Story Weight</strong></td>
+                    <td>Significant charges, public safety impact, unusual circumstances</td>
+                    <td>Routine arrest with notable details</td>
+                    <td>Minor infraction, no public interest</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>🚀 Future Signal Expansion</h3>
+        <ul>
+            <li><strong>PACER alerts:</strong> Automated monitoring of specific federal cases for new filings</li>
+            <li><strong>RSS feeds:</strong> Direct subscription to local PD press release feeds where available</li>
+            <li><strong>State court APIs:</strong> Automated docket monitoring in states with public APIs (e.g., Florida, Texas)</li>
+            <li><strong>Grand jury watch:</strong> Monitoring federal court calendars for sealed indictment activity</li>
+            <li><strong>Booking log scrapers:</strong> Direct integration with county jail inmate search systems</li>
+            <li><strong>Legislative tracking:</strong> Criminal justice reform bills and sentencing guideline changes</li>
+        </ul>
     </div>
 
     <!-- Target Platforms -->
